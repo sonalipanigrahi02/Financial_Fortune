@@ -702,7 +702,7 @@ https://templatemo.com/tm-545-finance-business
       (function () {
         emailjs.init("bIDz4bcq5JODVz-pC"); // Replace with your EmailJS User ID
       })();
-
+      // apply form logic
       document
         .getElementById("loanForm")
         .addEventListener("submit", function (event) {
@@ -718,6 +718,38 @@ https://templatemo.com/tm-545-finance-business
             },
             function (error) {
               alert("Failed to send email. Error: " + JSON.stringify(error));
+            }
+          );
+        });
+
+      // contact us logic
+
+      document
+        .getElementById("contact")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the default form submission
+
+          // Send form data using EmailJS
+          emailjs.sendForm("service_345e4wd", "template_miy178e", this).then(
+            function () {
+              alert("Message sent successfully!");
+
+              // Hide the form after submission
+              document.querySelector(
+                ".callback-form .contact-form"
+              ).style.display = "none";
+
+              // Optionally, display a success message
+              let successMessage = document.createElement("div");
+              successMessage.className = "alert alert-success";
+              successMessage.innerText =
+                "Thank you for your message. We will get back to you soon!";
+              document
+                .querySelector(".callback-form .container .row")
+                .appendChild(successMessage);
+            },
+            function (error) {
+              alert("Failed to send message. Error: " + JSON.stringify(error));
             }
           );
         });
